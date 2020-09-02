@@ -2,6 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jurusan_model extends CI_Model {
+	public function getAllJurusan($limit, $start, $keyword = null)
+	{
+		if($keyword) {
+			$this->db->like('kode_jurusan', $keyword);
+			$this->db->or_like('nama_jurusan', $keyword);
+		}
+		return $this->db->get('jurusan', $limit, $start)->result_array();
+	}
+
 	public function aksiTambahJurusan()
 	{
 		$data = [

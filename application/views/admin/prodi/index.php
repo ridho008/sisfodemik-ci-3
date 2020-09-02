@@ -29,17 +29,23 @@
                 <?= $this->session->flashdata('pesan'); ?>
               </div>
             </div>
+            <h5 class="text-muted">Total <?= $total_rows; ?> Program Studi</h5>
+            <?php if($this->input->post('submit')) : ?>
+            <h6 class="text-center text-muted">Yang Anda Cari <strong><?= set_value('keyword'); ?></strong></h6>
+            <?php endif; ?>
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Program Studi</h3>
                 <div class="card-tools">
+                  <form action="<?= base_url('admin/prodi'); ?>" method="post">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="keyword" class="form-control float-right" placeholder="Cari">
 
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      <input type="submit" name="submit" class="btn btn-default" value="Cari">
                     </div>
                   </div>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -69,9 +75,19 @@
                     <?php endforeach; ?>
                   </tbody>
                 </table>
+                <?php if(empty($prodi)) : ?>
+                  <div class="alert alert-danger" role="alert">Data tidak ditemukan.</div>
+                <?php endif; ?>
               </div>
               <!-- /.card-body -->
             </div>
+              <!-- Pagination -->
+              <div class="row">
+                <div class="col-md-4 offset-md-10">
+                  <?= $this->pagination->create_links(); ?>
+                </div>
+              </div>
+              <!-- /Pagination -->
 
           </div>
         </div>

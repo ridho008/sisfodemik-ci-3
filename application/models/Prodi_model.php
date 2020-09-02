@@ -2,13 +2,17 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Prodi_model extends CI_Model {
-	public function getAllProdiJoinJurusan()
+	public function getAllProdiJoinJurusan($limit, $start, $keyword = null)
 	{
+		if($keyword) {
+			$this->db->like('kode_prodi', $keyword);
+			$this->db->or_like('nama_prodi', $keyword);
+		}
 		$this->db->select('*');
 		$this->db->from('prodi');
 		$this->db->join('jurusan', 'jurusan.id_jurusan = prodi.id_jurusan');
 		$this->db->order_by('id_prodi', 'DESC');
-		return $this->db->get()->result_array();
+		return $this->db->get('', $limit, $start)->result_array();
 	}
 
 	public function aksiProdiJurusan()
@@ -39,6 +43,11 @@ class Prodi_model extends CI_Model {
 		$this->db->set($arr);
 		$this->db->where('id_prodi', $id_prodi);
 		$this->db->update('prodi');
+	}
+
+	public function countAllProdi()
+	{
+		return $this->db->get('prodi')->num_rows();
 	}
 
 }
