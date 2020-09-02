@@ -66,4 +66,68 @@ $(function() {
 		});
 	});
 
+
+	// Halaman Mata Kuliah (DETAIL)
+	$('.tombolDetailMatkul').click(function() {
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/matkul/getdetailmatkul',
+			data: {id: id},
+			method: 'post',
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				$('#kode_matkul td').html(data.kode_matkul);
+				$('#nama_matkul td').html(data.nama_matkul);
+				$('#sks td').html(data.sks);
+				$('#semester td').html(data.semester);
+				$('#nama_prodi td').html(data.nama_prodi);
+				$('#formMatkulDetailModalLabel').html('Detail Data Mata Kuliah <strong>' + data.kode_matkul + '</strong>');
+			}
+		});
+	});
+
+
+
+	// Halaman Program Studi (UBAH)
+	$('.tombolTambahMatkul').click(function() {
+		$('#formMatkulModalLabel').html('Tambah Data Matkul');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		// $('#kode_matkul').val('');
+		// Permasalahan
+		// JIka di klik tombol ubah berhasil, lalu coba klik tombol tambah pasti kode matkulnya akan sama dengan kode di tombol ubah. jadi belum dapat menyelesaikan masalah tersebut.
+		$('#nama_matkul').val('');
+		$('#sks').val('');
+		$('#semester').val('');
+		$('#nama_prodi').val('');
+	});
+
+	$('.tombolUbahMatkul').click(function() {
+		$('#formMatkulModalLabel').html('Ubah Data Matkul');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/matkul/ubahmatkul');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/matkul/getubahmatkul',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				// console.log(data);
+				$('#kode_matkul').val(data.kode_matkul);
+				$('#nama_matkul').val(data.nama_matkul);
+				$('#sks').val(data.sks);
+				$('#semester').val(data.semester);
+				$('#nama_prodi').val(data.id_prodi);
+			}
+		});
+	});
+
+
 });

@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Jurusan extends CI_Controller {
+class Matkul extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Jurusan_model');
+		$this->load->model('Matkul_model');
 		if(!$this->session->userdata('level')) {
 			redirect('auth');
 		}
@@ -13,9 +13,10 @@ class Jurusan extends CI_Controller {
 
 	public function index()
 	{
-		$data['judul'] = 'Jurusan';
+		$data['judul'] = 'Mata Kuliah';
 		$data['user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id_user')])->row_array();
 
+		// Pagination
 		if($this->input->post('submit')) {
             $data['keyword'] = $this->input->post('keyword');
             $this->session->set_userdata('keyword');
@@ -25,14 +26,14 @@ class Jurusan extends CI_Controller {
             $data['keyword'] = $this->session->userdata('keyword');
         }
 
-        $this->db->like('nama_jurusan', $data['keyword']);
-        $this->db->or_like('kode_jurusan', $data['keyword']);
-        $this->db->from('jurusan');
+        $this->db->like('kode_matkul', $data['keyword']);
+        $this->db->or_like('nama_matkul', $data['keyword']);
+        $this->db->from('matkul');
         $config['total_rows'] = $this->db->count_all_results();
         $data['total_rows'] = $config['total_rows'];
 
 		// Pagination
-		$config['base_url'] = 'http://localhost/sisfodemik-ci-3/admin/jurusan/index/';
+		$config['base_url'] = 'http://localhost/sisfodemik-ci-3/admin/matkul/index/';
 		// $config['total_rows'] = $this->Prodi_model->countAllProdi();
 		// var_dump($config['total_rows']); die;
 		$config['per_page'] = 2;
@@ -69,48 +70,75 @@ class Jurusan extends CI_Controller {
 
 		
 		$data['start'] = $this->uri->segment(4);
-		$data['jurusan'] = $this->Jurusan_model->getAllJurusan($config['per_page'], $data['start'], $data['keyword']);
 
-		$this->form_validation->set_rules('kode_jurusan', 'Kode Jurusan', 'required|trim',
+		$data['prodi'] = $this->db->get('prodi')->result_array();
+		$data['matkul'] = $this->Matkul_model->getMatkulProdi($config['per_page'], $data['start'], $data['keyword']);
+		$kodeMatkul = $this->Matkul_model->cekKodeMatkul();
+		$noUrut = substr($kodeMatkul, 3, 4);
+		$kodeMarkulSekarang = $noUrut + 1;
+		$data['kode'] = $kodeMarkulSekarang;
+
+		$this->form_validation->set_rules('kode_matkul', 'Kode Matkul', 'required|trim',
 		[
-		'required' => 'Kode Jurusan Harus Di Isi!'
+		'required' => 'Kode Matkul Harus Di Isi!'
 		]
 		);
-		$this->form_validation->set_rules('nama_jurusan', 'Nama Jurusan', 'required|trim',
+		$this->form_validation->set_rules('nama_matkul', 'Nama Matkul', 'required|trim',
 		[
-		'required' => 'Nama Jurusan Harus Di Isi!'
+		'required' => 'Nama Matkul Harus Di Isi!'
+		]
+		);
+		$this->form_validation->set_rules('sks', 'SKS', 'required|trim',
+		[
+		'required' => 'SKS Harus Di Isi!'
+		]
+		);
+		$this->form_validation->set_rules('semester', 'Semester', 'required|trim',
+		[
+		'required' => 'Semester Harus Di Isi!'
+		]
+		);
+		$this->form_validation->set_rules('nama_prodi', 'Nama Prodi', 'required|trim',
+		[
+		'required' => 'Nama Prodi Harus Di Isi!'
 		]
 		);
 		if($this->form_validation->run() == FALSE) {
 			$this->load->view('themeplates_admin/header', $data);
 			$this->load->view('themeplates_admin/sidebar', $data);
-			$this->load->view('admin/jurusan/index', $data);
+			$this->load->view('admin/matkul/index', $data);
 			$this->load->view('themeplates_admin/footer');
 		} else {
-			$this->Jurusan_model->aksiTambahJurusan();
-			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Data Jurusan <strong>Berhasil Ditambahkan.</strong></div>');
-			redirect('admin/jurusan');
+			$this->Matkul_model->aksiTambahMatkul();
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Data Mata Kuliah <strong>Berhasil Ditambahkan.</strong></div>');
+			redirect('admin/matkul');
 		}
 	}
 
-	public function getubahjurusan()
+	public function getdetailmatkul()
 	{
-		// echo $_POST['id'];
-		echo json_encode($this->Jurusan_model->getJurusanId($_POST['id']));
+		$kode = $_POST['id'];
+		echo json_encode($this->Matkul_model->getDetailJoinProdi($kode));
 	}
 
-	public function ubahjurusan()
+	public function getubahmatkul()
 	{
-		$this->Jurusan_model->aksiUbahJurusan($_POST);
-		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Data Jurusan <strong>Berhasil Diubah.</strong></div>');
-		redirect('admin/jurusan');
+		$kode = $_POST['id'];
+		echo json_encode($this->Matkul_model->getMatkulId($kode));
+	}
+
+	public function ubahmatkul()
+	{
+		$this->Matkul_model->aksiUbahMatkul($_POST);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Data Mata Kuliah <strong>Berhasil Diubah.</strong></div>');
+		redirect('admin/matkul');
 	}
 
 	public function hapus($id)
 	{
-		$this->db->delete('jurusan', ['id_jurusan' => $id]);
-		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Data Jurusan <strong>Berhasil Dihapus.</strong></div>');
-		redirect('admin/jurusan');
+		$this->db->delete('matkul', ['kode_matkul' => $id]);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-trash"></i> Data Mata Kuliah <strong>Berhasil Dihapus.</strong></div>');
+		redirect('admin/matkul');
 	}
 
 }
