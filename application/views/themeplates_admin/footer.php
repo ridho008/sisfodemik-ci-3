@@ -18,6 +18,7 @@
 <script src="<?= base_url('assets/assets_theme/'); ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/assets_theme/'); ?>dist/js/adminlte.min.js"></script>
+<script src="<?= base_url('assets/assets_theme/'); ?>dist/js/myscript.js"></script>
 </body>
 </html>
 

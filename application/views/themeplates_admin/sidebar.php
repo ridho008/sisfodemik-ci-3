@@ -82,13 +82,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('admin/jurusan'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jurusan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('admin/prodi'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Program Studi</p>
                 </a>
