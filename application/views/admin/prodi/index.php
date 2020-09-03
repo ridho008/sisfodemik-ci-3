@@ -61,9 +61,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $no = 1; foreach($prodi as $p) : ?>
+                    <?php foreach($prodi as $p) : ?>
                       <tr>
-                        <td><?= $no++; ?></td>
+                        <td><?= ++$start; ?></td>
                         <td><?= $p['kode_prodi']; ?></td>
                         <td><?= $p['nama_prodi']; ?></td>
                         <td><?= $p['nama_jurusan']; ?></td>

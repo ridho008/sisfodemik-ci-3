@@ -106,13 +106,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('admin/tahun_aka'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tahun Akademik</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('admin/krs'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>KRS</p>
                 </a>

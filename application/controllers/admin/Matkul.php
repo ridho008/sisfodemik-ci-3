@@ -5,10 +5,12 @@ class Matkul extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		cekMenu();
+		cekLogin();
 		$this->load->model('Matkul_model');
-		if(!$this->session->userdata('level')) {
-			redirect('auth');
-		}
+		// if(!$this->session->userdata('level')) {
+		// 	redirect('auth');
+		// }
 	}
 
 	public function index()

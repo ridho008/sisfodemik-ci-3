@@ -25,19 +25,19 @@
           <div class="col-lg">
             <div class="row">
               <div class="col-md-6">
-                <button type="button" class="btn btn-info mb-2 tombolTambahJurusan" data-toggle="modal" data-target="#formJurusanModal"><i class="fa fa-plus"></i> Tambah Data Jurusan</button>
+                <button type="button" class="btn btn-info mb-2 tombolTambahTahunAka" data-toggle="modal" data-target="#formTahunAkaModal"><i class="fa fa-plus"></i> Tambah Data Tahun Akademi</button>
                 <?= $this->session->flashdata('pesan'); ?>
               </div>
             </div>
-            <h5 class="text-muted">Total <?= $total_rows; ?> Program Studi</h5>
+            <h5 class="text-muted">Total <?= $total_rows; ?> Tahun Akademi</h5>
             <?php if($this->input->post('submit')) : ?>
             <h6 class="text-center text-muted">Yang Anda Cari <strong><?= set_value('keyword'); ?></strong></h6>
             <?php endif; ?>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Jurusan</h3>
+                <h3 class="card-title">Tahun Akademi</h3>
                 <div class="card-tools">
-                  <form action="<?= base_url('admin/jurusan'); ?>" method="post">
+                  <form action="<?= base_url('admin/tahun_aka'); ?>" method="post">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="keyword" class="form-control float-right" placeholder="Cari">
 
@@ -54,26 +54,28 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Kode Jurusan</th>
-                      <th>Nama Jurusan</th>
+                      <th>Tahun Akademi</th>
+                      <th>Semester</th>
+                      <th>Status</th>
                       <th><i class="fa fa-cogs"></i></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach($jurusan as $j) : ?>
+                    <?php $no = 1; foreach($tahun_aka as $t) : ?>
                       <tr>
-                        <td><?= ++$start; ?></td>
-                        <td><?= $j['kode_jurusan']; ?></td>
-                        <td><?= $j['nama_jurusan']; ?></td>
+                        <td><?= $no++; ?></td>
+                        <td><?= $t['tahun_aka']; ?></td>
+                        <td><?= $t['semester']; ?></td>
+                        <td><?= $t['status']; ?></td>
                         <td>
-                          <button type="button" class="btn btn-info tombolUbahJurusan" data-toggle="modal" data-target="#formJurusanModal" data-id="<?= $j['id_jurusan']; ?>"><i class="fa fa-edit"></i></button>
-                          <a href="<?= base_url('admin/jurusan/hapus/') . $j['id_jurusan']; ?>" onclick="return confirm('Yakin ?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                          <button type="button" class="btn btn-info tombolUbahTahunAka" data-toggle="modal" data-target="#formTahunAkaModal" data-id="<?= $t['id_tahun_aka']; ?>"><i class="fa fa-edit"></i></button>
+                          <a href="<?= base_url('admin/tahun_aka/hapus/') . $t['id_tahun_aka']; ?>" onclick="return confirm('Yakin ?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
-                <?php if(empty($jurusan)) : ?>
+                <?php if(empty($tahun_aka)) : ?>
                   <div class="alert alert-danger" role="alert">Data tidak ditemukan.</div>
                 <?php endif; ?>
               </div>
@@ -111,27 +113,40 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="formJurusanModal" tabindex="-1" aria-labelledby="formJursanModalLabel" aria-hidden="true">
+<div class="modal fade" id="formTahunAkaModal" tabindex="-1" aria-labelledby="formTahunAkaModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="formJursanModalLabel">Tambah Data Jurusan</h5>
+        <h5 class="modal-title" id="formTahunAkaModalLabel">Tambah Data Tahun Akademik</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form action="" method="post">
-          <input type="hidden" name="id_jurusan" id="id_jurusan">
+          <input type="hidden" name="id_tahun_aka" id="id_tahun_aka">
           <div class="form-group">
-            <label for="kode_jurusan">Kode Jurusan</label>
-            <input type="text" name="kode_jurusan" id="kode_jurusan" class="form-control">
-            <small class="muted text-danger"><?= form_error('kode_jurusan'); ?></small>
+            <label for="tahun_aka">Tahun Akademik</label>
+            <input type="text" name="tahun_aka" id="tahun_aka" class="form-control">
+            <small class="muted text-danger"><?= form_error('tahun_aka'); ?></small>
           </div>
           <div class="form-group">
-            <label for="nama_jurusan">Nama Jurusan</label>
-            <input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control">
-            <small class="muted text-danger"><?= form_error('nama_jurusan'); ?></small>
+            <label for="semester">Semester</label>
+            <select name="semester" id="semester" class="form-control">
+              <option value="">-- Pilih Semester --</option>
+              <option value="Ganjil">Ganjil</option>
+              <option value="Genap">Genap</option>
+            </select>
+            <small class="muted text-danger"><?= form_error('semester'); ?></small>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select name="status" id="status" class="form-control">
+              <option value="">-- Pilih status --</option>
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
+            <small class="muted text-danger"><?= form_error('status'); ?></small>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

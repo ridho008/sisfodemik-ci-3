@@ -130,4 +130,104 @@ $(function() {
 	});
 
 
+	// Halaman Ubah Mahasiswa
+	$('.tombolTambahMahasiswa').click(function() {
+		$('#formMahasiswaModalLabel').html('Tambah Data Mahasiswa');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_mahasiswa').val('');
+		$('#nim').val('');
+		$('#nama').val('');
+		$('#alamat').val('');
+		$('#email').val('');
+		$('#telepon').val('');
+		$('#tmp_lahir').val('');
+		$('#tgl_lahir').val('');
+		$('#kelamin').val('');
+		$('#nama_prodi').val('');
+		$('#fotoLama').val('');
+		$('#tampilFoto').attr('src', '');
+	});
+
+	$('.tombolUbahMahasiswa').click(function() {
+		$('#formMahasiswaModalLabel').html('Ubah Data Mahasiswa');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/mahasiswa/ubahmhs');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/mahasiswa/getubahmhs',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_mahasiswa').val(data.id_mahasiswa);
+				$('#nim').val(data.nim);
+				$('#nama').val(data.nama_lengkap);
+				$('#alamat').val(data.alamat);
+				$('#email').val(data.email);
+				$('#telepon').val(data.telepon);
+				$('#tmp_lahir').val(data.tmp_lahir);
+				$('#tgl_lahir').val(data.tgl_lahir);
+				// if($('input[type="radio"]').val('P')) {
+				// 	// console.log(data.kelamin);
+				// 	$('input[type="radio"]').prop('checked', data.kelamin);
+				// } else if($('input[type="radio"]').val('L')) {
+				// 	$('input[type="radio"]').prop('checked', data.kelamin);
+				// }
+				// if($('input[type="radio"]').val(data.kelamin) == 'L') {
+				// 	$("input[name='kelamin']").prop('checked', 'checked');
+				// }
+				// if($('#kelamin').val(data.kelamin == 'P')) {
+				// 	$('#kelamin').prop('checked', 'checked');
+				// }
+				// $('#kelamin').prop("checked") == data.kelamin ? 'L' : 'P';
+				$('#kelamin').val(data.kelamin);
+				$('#nama_prodi').val(data.id_prodi);
+				$('#fotoLama').val(data.foto);
+				$('#tampilFoto').attr('src', 'http://localhost/sisfodemik-ci-3/assets/img/foto_mahasiswa/' + data.foto);
+			}
+		});
+	});
+
+
+
+	// Halaman Tahun Akademik
+	$('.tombolTambahTahunAka').click(function() {
+		$('#formTahunAkaModalLabel').html('Tambah Data Tahun Akademik');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_tahun_aka').val('');
+		$('#tahun_aka').val('');
+		$('#semester').val('');
+		$('#status').val('');
+	});
+
+	$('.tombolUbahTahunAka').click(function() {
+		$('#formTahunAkaModalLabel').html('Ubah Data Tahun Akademik');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/tahun_aka/ubahtahunaka');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/tahun_aka/getubahtahunaka',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_tahun_aka').val(data.id_tahun_aka);
+				$('#tahun_aka').val(data.tahun_aka);
+				$('#semester').val(data.semester);
+				$('#status').val(data.status);
+			}
+		});
+	});
+
+
 });

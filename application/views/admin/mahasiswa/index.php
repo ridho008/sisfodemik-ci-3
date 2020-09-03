@@ -29,7 +29,7 @@
                 <?= $this->session->flashdata('pesan'); ?>
               </div>
             </div>
-            <!-- <h5 class="text-muted">Total <?= $total_rows; ?> Program Studi</h5> -->
+            <h5 class="text-muted">Total <?= $total_rows; ?> Mahasiswa</h5>
             <?php if($this->input->post('submit')) : ?>
             <h6 class="text-center text-muted">Yang Anda Cari <strong><?= set_value('keyword'); ?></strong></h6>
             <?php endif; ?>
@@ -140,7 +140,7 @@
       </div>
       <div class="modal-body">
         <form action="" method="post" enctype="multipart/form-data">
-          <input type="text" name="id_mahasiswa" id="id_mahasiswa">
+          <input type="hidden" name="id_mahasiswa" id="id_mahasiswa">
           <div class="form-group">
             <label for="nim">NIM</label>
             <input type="number" name="nim" id="nim" class="form-control">
@@ -166,13 +166,13 @@
             <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
             <small class="muted text-danger"><?= form_error('tgl_lahir'); ?></small>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="kelamin" id="inlineRadio1" value="L">
-            <label class="form-check-label" for="inlineRadio1">Pria</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="kelamin" id="inlineRadio2" value="P">
-            <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+          <div class="form-group">
+            <label for="kelamin">Jenis Kelamin</label>
+            <select name="kelamin" id="kelamin" class="form-control">
+              <option value="">-- Pilih Jenis Kelamin --</option>
+              <option value="L">Pria</option>
+              <option value="P">Perempuan</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="telepon">Telepon</label>
@@ -195,9 +195,10 @@
             <small class="muted text-danger"><?= form_error('nama_prodi'); ?></small>
           </div>
           <div class="form-group">
-            <label for="foto">Foto</label>
+            <label for="foto">Foto</label><br>
+            <img src="" width="80" id="tampilFoto">
             <input type="file" name="foto" id="foto" class="form-control-file">
-            <small class="muted text-danger"><?= form_error('foto'); ?></small>
+            <input type="hidden" name="fotoLama" id="fotoLama">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

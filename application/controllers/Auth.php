@@ -11,7 +11,7 @@ class Auth extends CI_Controller {
 	public function index()
 	{
 		$data['judul'] = 'Halaman Login';
-
+		$this->cekSession();
 		$this->form_validation->set_rules('username', 'Username', 'required|trim', ['required' => 'Username Harus Di isi!']);
 		$this->form_validation->set_rules('password', 'Password', 'required|trim', ['required' => 'Password Harus Di isi!']);
 		if($this->form_validation->run() == FALSE) {
@@ -42,6 +42,8 @@ class Auth extends CI_Controller {
 				$this->session->set_userdata($data);
 
 				if($user['level'] == 'user') {
+					redirect('user/dashboard');
+				} else {
 					redirect('admin/dashboard');
 				}
 			} else {
@@ -56,6 +58,7 @@ class Auth extends CI_Controller {
 
 	public function daftar()
 	{
+		$this->cekSession();
 		$data['judul'] = 'Halaman Daftar';
 
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', ['required' => 'Email Harus Di isi!', 'valid_email' => 'Email harus valid/benar!']);
@@ -90,6 +93,15 @@ class Auth extends CI_Controller {
 		$this->session->unset_userdata('level');
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Berhasil Logout</div>');
 		redirect('auth');
+	}
+
+	public function cekSession()
+	{
+		if($this->session->userdata('level') == 'admin') {
+			redirect('admin/dashboard');
+		} else if($this->session->userdata('level') == 'user') {
+			redirect('user/dashboard');
+		}
 	}
 
 }
