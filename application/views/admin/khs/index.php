@@ -30,12 +30,12 @@
             </div>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Jurusan</h3>
+                <h3 class="card-title">Kartu Hasil Studi (KHS)</h3>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6">
-                    <form action="<?= base_url('admin/krs/krs_aksi'); ?>" method="post">
+                    <form action="<?= base_url('admin/khs/khs_aksi'); ?>" method="post">
                       <div class="form-group">
                         <label for="nim">NIM Mahasiwa</label>
                         <input type="text" name="nim" id="id" class="form-control" placeholder="Masukan nim mahasiswa">
@@ -43,8 +43,6 @@
                       </div>
                       <div class="form-group">
                         <label for="tahun_akad">Tahun Akademik/Semester</label>
-                        <!-- <select name="id_tahun_aka" id="id_tahun_aka" class="form-control">
-                          <option value="">-- Pilih Tahun/Semester</option> -->
                           <?php 
                           foreach ($tahunakaseme as $dropdown) {
                             if ($dropdown->semester == 'Ganjil') {

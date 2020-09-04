@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"><?= $judul; ?></h1>
+            <h1 class="m-0 text-dark">Tambah Kartu Rencana Studi</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -30,43 +30,45 @@
             </div>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Jurusan</h3>
+                <h3 class="card-title">Tambah Kartu Rencana Studi</h3>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6">
-                    <form action="<?= base_url('admin/krs/krs_aksi'); ?>" method="post">
+                    <form method="post" action="<?= base_url('admin/krs/tambah_aksi_krs'); ?>">
                       <div class="form-group">
-                        <label for="nim">NIM Mahasiwa</label>
-                        <input type="text" name="nim" id="id" class="form-control" placeholder="Masukan nim mahasiswa">
+                        <label>Tahun Akademik</label>
+                        <input type="text" name="id_tahun_aka" class="form-control" value="<?= $id_tahun_aka; ?>">
+                        <small class="muted text-danger"><?= form_error('id_tahun_aka'); ?></small>
+                        <input type="text" name="id_krs" class="form-control" value="<?= $id_krs; ?>">
+
+                        <input type="text" name="thn_akad_smt" class="form-control" value="<?= $thn_akad_smt . '/' . $semester ; ?>" readonly>
+                        <small class="muted text-danger"><?= form_error('thn_akad_smt'); ?></small>
+                      </div>
+                      <div class="form-group">
+                        <label>NIM Mahasiswa</label>
+                        <input type="text" name="nim" class="form-control" value="<?= $nim; ?>" readonly>
                         <small class="muted text-danger"><?= form_error('nim'); ?></small>
                       </div>
                       <div class="form-group">
-                        <label for="tahun_akad">Tahun Akademik/Semester</label>
-                        <!-- <select name="id_tahun_aka" id="id_tahun_aka" class="form-control">
-                          <option value="">-- Pilih Tahun/Semester</option> -->
-                          <?php 
-                          foreach ($tahunakaseme as $dropdown) {
-                            if ($dropdown->semester == 'Ganjil') {
-                              $tampilSemester = "Ganjil";
-                            } else if ($dropdown->semester == 'Genap') {
-                              $tampilSemester = "Genap";
-                            }
-                            // var_dump($dropdown); die;
-                             $dropdownList[$dropdown->id_tahun_aka] = $dropdown->thn_semester . " " . $tampilSemester;
-                          }
-                          echo form_dropdown('tahun_akad', $dropdownList, '', 'class="form-control" id="tahun_akad"');
-                          ?>
-                        <!-- </select> -->
-                        <small class="muted text-danger"><?= form_error('tahun_akad'); ?></small>
+                        <label>Mata Kuliah</label>
+                        <?php 
+                        foreach($matakuliah as $dropdown) {
+                          $dropDownList[$dropdown->kode_matkul] = $dropdown->nama_matkul;
+                        }
+                        echo form_dropdown('kode_matkul', $dropDownList, $kode_matkul, 'class="form-control" id="kode_matkul"');
+                        ?>
+                        <small class="muted text-danger"><?= form_error('kode_matkul'); ?></small>
                       </div>
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Proses</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <a href="<?= base_url('admin/krs'); ?>" class="btn btn-danger">Batal</a>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
+
             </div>
               <!-- Pagination -->
               <div class="row">
@@ -94,4 +96,5 @@
     </div>
   </aside>
   <!-- /.control-sidebar -->
+
 
