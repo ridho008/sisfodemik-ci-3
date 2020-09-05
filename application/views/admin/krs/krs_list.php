@@ -30,7 +30,7 @@
             </div>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Kartu Rencana Studi</h3>
+                <h3 class="card-title">Kartu Rencana Studi <strong><?= $nama_lengkap; ?></strong></h3>
               </div>
               <div class="card-body">
                 <table>
@@ -89,6 +89,9 @@
                       <td colspan="3"><?= $jumlahSks; ?></td>
                     </tr>
                 </table>
+                <?php if(empty($krs_data)) : ?>
+                  <div class="alert alert-danger" role="alert"><strong><?= $nama_lengkap; ?></strong> Belum Menambahkan/Memilih Data Mata Kuliah (KRS).</div>
+                <?php endif; ?>
                 </div>
                 <!-- /Table -->
               </div>

@@ -230,4 +230,50 @@ $(function() {
 	});
 
 
+
+	// Halaman Ubah Dosen
+	$('.tombolTambahDosen').click(function() {
+		$('#formDosenModalLabel').html('Tambah Data Dosen');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_dosen').val('');
+		$('#nim').val('');
+		$('#nama').val('');
+		$('#alamat').val('');
+		$('#email').val('');
+		$('#telepon').val('');
+		$('#kelamin').val('');
+		$('#fotoLama').val('');
+		$('#tampilFoto').attr('src', '');
+	});
+
+	$('.tombolUbahDosen').click(function() {
+		$('#formDosenModalLabel').html('Ubah Data Dosen');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/dosen/ubahdosen');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/dosen/getubahdosen',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_dosen').val(data.id_dosen);
+				$('#nidn').val(data.nidn);
+				$('#nama').val(data.nama_dosen);
+				$('#alamat').val(data.alamat);
+				$('#email').val(data.email);
+				$('#telepon').val(data.telepon);
+				$('#kelamin').val(data.kelamin);
+				$('#fotoLama').val(data.foto_dosen);
+				$('#tampilFoto').attr('src', 'http://localhost/sisfodemik-ci-3/assets/img/foto_dosen/' + data.foto_dosen);
+			}
+		});
+	});
+
+
 });

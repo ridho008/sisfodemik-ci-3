@@ -29,8 +29,8 @@
               </div>
             </div>
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Kartu Hasil Studi</h3>
+              <div class="card-header"> 
+                <h3 class="card-title">Kartu Hasil Studi <strong><?= $mhs_nama; ?></strong></h3>
               </div>
               <div class="card-body">
                 <table>
@@ -81,13 +81,17 @@
                       ?>
                     </tr>
                   <?php endforeach; ?>
+                  <?php if(!empty($mhs_data)) : ?>
                     <tr>
                       <td colspan="3">Jumlah</td>
                       <td><?= $jumlahSks; ?></td>
                       <td><?= $jmlNilai; ?></td>
                     </tr>
-                </table>
                 Index Prestasi : <?= number_format($jmlNilai / $jumlahSks, 2); ?>
+                <?php else : ?>
+                  <div class="alert alert-danger" role="alert"><strong><?= $mhs_nama; ?></strong> Belum Menggambil Mata Kuliah Di Tahun <strong><?= $thn_akad; ?></strong></div>
+                <?php endif; ?>
+                </table>
                 </div>
                 <!-- /Table -->
               </div>

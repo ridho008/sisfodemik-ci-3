@@ -40,7 +40,7 @@ class Khs extends CI_Controller {
 		$tahun_akad = $this->input->post('tahun_akad', true);
 
 		if($this->Krs_model->getMhsId($nim) == null) {
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fa fa-info-circle"></i> Data Mahasiswa <strong> Tidak Terdaftar!.</strong></div>');
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fa fa-info-circle"></i> Data NIM Mahasiswa <strong>'. set_value('nim') .' Tidak Terdaftar!.</strong></div>');
 			redirect('admin/khs');
 		}
 

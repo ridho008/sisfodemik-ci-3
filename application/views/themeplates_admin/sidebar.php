@@ -70,18 +70,6 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dosen</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cetak Transkrip</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="<?= base_url('admin/jurusan'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jurusan</p>
@@ -118,15 +106,27 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="<?= base_url('admin/khs/input_nilai'); ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Input Nilai</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="<?= base_url('admin/khs'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>KHS</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('admin/khs/input_nilai'); ?>" class="nav-link">
+                <a href="<?= base_url('admin/transkrip_nilai'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Input Nilai</p>
+                  <p>Cetak Transkrip</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('admin/dosen'); ?>" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dosen</p>
                 </a>
               </li>
             </ul>

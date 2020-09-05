@@ -75,13 +75,21 @@
                           </tr>
                           <?php endforeach; ?>
                         </table>
+                        <?php if(empty($list_nilai)) : ?>
+                          <div class="alert alert-danger" role="alert">Data kode <strong><?= set_value('kode_matkul'); ?></strong> tidak ditemukan.</div>
+                        <?php endif; ?>
                       </div>
                         <div class="row">
                           <div class="col-md-6">
+                            <?php if(empty($list_nilai)) : ?>
+                              <p>Lakukan Tambah Data KRS NIM Mahasiswa Pada Tahun Akademik <strong><?= $tahun_aka->tahun_aka . "/" . $tahun_aka->semester; ?></strong></p>
+                              <a href="<?= base_url('admin/khs/input_nilai'); ?>" class="btn btn-outline-dark">Kembali</a>
+                              <?php else : ?>
                             <div class="form-group">
                               <button type="submit" class="btn btn-primary">Simpan</button>
                               <a href="<?= base_url('admin/khs/input_nilai'); ?>" class="btn btn-outline-dark">Kembali</a>
                             </div>
+                            <?php endif; ?>
                           </div>
                         </div>
                     </form>

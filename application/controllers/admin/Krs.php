@@ -41,7 +41,7 @@ class Krs extends CI_Controller {
 		
 		// jika nim tidak ada di table Mahasiswa
 		if($this->Krs_model->getMhsId($nim) == null) {
-			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fa fa-info-circle"></i> Data Mahasiswa <strong> Tidak Terdaftar!.</strong></div>');
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fa fa-info-circle"></i> Data NIM Mahasiswa <strong> '. set_value('nim') .' Tidak Terdaftar!.</strong></div>');
 			redirect('admin/krs');
 		}
 
