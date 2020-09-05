@@ -57,4 +57,48 @@ class Krs_model extends CI_Model {
 	}
 
 
+	// ------------------ INPUT NILAI----------------
+	public function getKodeMatkulById($kode_matkul)
+	{
+		return $this->db->get_where('matkul', ['kode_matkul' => $kode_matkul])->row_array();
+	}
+
+	public function getMatkulByKodeMatkul($kode_matkul)
+	{
+		return $this->db->get_where('matkul', ['kode_matkul' => $kode_matkul])->row_array();
+	}
+
+	public function aksiQueryInputNilai($kode_matkul, $id_tahun_aka)
+	{
+		$this->db->select('krs.id_krs, krs.nim, mahasiswa.nama_lengkap, krs.nilai, matkul.nama_matkul');
+		$this->db->from('krs');
+		$this->db->join('mahasiswa', 'mahasiswa.nim = krs.nim');
+		$this->db->join('matkul', 'matkul.kode_matkul = krs.kode_matkul');
+		$this->db->where('krs.id_tahun_aka', $id_tahun_aka);
+		$this->db->where('krs.kode_matkul', $kode_matkul);
+		return $this->db->get()->result();
+	}
+
+	public function getKrsByIdArr($id_krs)
+	{
+		$this->db->select('*');
+		$this->db->from('matkul');
+		$this->db->join('krs', 'krs.kode_matkul = matkul.kode_matkul');
+		$this->db->join('tahun_aka', 'tahun_aka.id_tahun_aka = krs.id_tahun_aka');
+		$this->db->join('mahasiswa', 'mahasiswa.nim = krs.nim');
+		$this->db->where('krs.id_krs', $id_krs);
+		return $this->db->get()->row();
+	}
+
+	public function getKrsByMatkulArr($kode_matkul)
+	{
+		$this->db->select('*');
+		$this->db->from('matkul');
+		$this->db->join('krs', 'krs.kode_matkul = matkul.kode_matkul');
+		$this->db->join('mahasiswa', 'mahasiswa.nim = krs.nim');
+		$this->db->where('krs.kode_matkul', $kode_matkul);
+		return $this->db->get()->result();
+	}
+
+
 }
