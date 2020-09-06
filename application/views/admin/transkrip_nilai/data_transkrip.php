@@ -33,7 +33,7 @@
                         <tr>
                           <th>NIM</th>
                           <!-- <td><?= var_dump($krsnim); ?></td> -->
-                          <td><?= $krsnim->nim; ?></td>
+                          <td><?= $mhs->nim; ?></td>
                         </tr>
                         <tr>
                           <th>Nama</th>
@@ -76,7 +76,11 @@
                           <td><?= $jmlSkor; ?></td>
                         </tr>
                       </table>
-                      <!-- <p>Index Prestasi Kumulatif : <?= number_format($jmlSkor / $jmlSks, 2); ?></p> -->
+                      <?php if(!empty($transkrip)) : ?>
+                      <p>Index Prestasi Kumulatif : <?= number_format($jmlSkor / $jmlSks, 2); ?></p>
+                      <?php else : ?>
+                        <div class="alert alert-danger" role="alert">Anda belum menginputankan krs untuk mahasiswa <strong><?= $mhs->nama_lengkap; ?></strong></div>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </div>

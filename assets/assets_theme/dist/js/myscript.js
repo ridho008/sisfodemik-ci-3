@@ -276,4 +276,43 @@ $(function() {
 	});
 
 
+	// Halaman Pengaturan > Users
+	$('.tombolTambahUser').click(function() {
+		$('#formUserModalLabel').html('Tambah Data User');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_user').val('');
+		$('#username').val('');
+		$('#email').val('');
+		$('#level').val('');
+		$('#blokir').val('');
+		$('#password').val('');
+	});
+
+	$('.tombolUbahUser').click(function() {
+		$('#formUserModalLabel').html('Ubah Data User');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/user/ubahuser');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/user/getubahuser',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_user').val(data.id_user);
+				$('#username').val(data.username);
+				$('#email').val(data.email);
+				$('#level').val(data.level);
+				$('#blokir').val(data.blokir);
+				$('#password').val(data.password);
+			}
+		});
+	});
+
+
 });

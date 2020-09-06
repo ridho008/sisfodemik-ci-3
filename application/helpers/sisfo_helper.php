@@ -40,7 +40,7 @@ function cekNilai($nim, $kode_matkul, $nilai)
 	$query = $ci->db->get()->row();
 
 	if($query != null) {
-		if($nilai < $query->nilai) {
+		if($query->nilai) {
 			$ci->db->set('nilai', $nilai);
 			$ci->db->where('nim', $nim);
 			$ci->db->where('kode_matkul', $kode_matkul);

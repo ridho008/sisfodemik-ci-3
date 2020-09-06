@@ -11,11 +11,11 @@ class Transkrip_nilai_model extends CI_Model {
 		$this->db->where('nim', $nim);
 		return $query = $this->db->get()->row();
 
-		$this->db->select('*');
-		$this->db->from('krs');
-		$this->db->where('nim', $nim);
-		$ok = $this->db->get()->row();
-		foreach($ok as $value) {
+		// $this->db->select('*');
+		// $this->db->from('krs');
+		// $this->db->where('nim', $nim);
+		// $ok = $this->db->get()->row();
+		foreach($query->result() as $value) {
 			cekNilai($value->nim, $value->kode_matkul, $value->nilai);
 		}
 

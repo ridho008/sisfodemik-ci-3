@@ -26,6 +26,16 @@ class Transkrip_nilai extends CI_Controller {
 		if($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
+			$nim = htmlspecialchars($this->input->post('nim', true));
+
+			$this->db->select('*');
+			$this->db->from('krs');
+			$this->db->where('nim', $nim);
+			$query = $this->db->get();
+
+			foreach($query->result() as $value) {
+				cekNilai($value->nim, $value->kode_matkul, $value->nilai);
+			}
 			$data['krsnim'] = $this->Transkrip_nilai_model->getKrsByNim();
 			$data['transkrip'] = $this->Transkrip_nilai_model->getTranskripByNim();
 			$data['mhs'] = $this->Transkrip_nilai_model->getMhsByNim();
