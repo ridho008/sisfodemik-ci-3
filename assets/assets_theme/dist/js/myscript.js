@@ -315,4 +315,26 @@ $(function() {
 	});
 
 
+	// Halaman Identitas Website
+	$('.tombolUbahIdentitas').click(function() {
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/identitas/getubahidentitas',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_identitas').val(data.id_identitas);
+				$('#nama').val(data.nama_web);
+				$('#alamat').val(data.alamat);
+				$('#email').val(data.email);
+				$('#telepon').val(data.telepon);
+			}
+		});
+	});
+
+
 });
