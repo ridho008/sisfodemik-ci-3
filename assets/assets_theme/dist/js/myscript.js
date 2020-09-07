@@ -163,7 +163,7 @@ $(function() {
 			dataType: 'json',
 			data: {id: id},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				$('#id_mahasiswa').val(data.id_mahasiswa);
 				$('#nim').val(data.nim);
 				$('#nama').val(data.nama_lengkap);
@@ -220,7 +220,7 @@ $(function() {
 			dataType: 'json',
 			data: {id: id},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				$('#id_tahun_aka').val(data.id_tahun_aka);
 				$('#tahun_aka').val(data.tahun_aka);
 				$('#semester').val(data.semester);
@@ -261,7 +261,7 @@ $(function() {
 			dataType: 'json',
 			data: {id: id},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				$('#id_dosen').val(data.id_dosen);
 				$('#nidn').val(data.nidn);
 				$('#nama').val(data.nama_dosen);
@@ -303,7 +303,7 @@ $(function() {
 			dataType: 'json',
 			data: {id: id},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				$('#id_user').val(data.id_user);
 				$('#username').val(data.username);
 				$('#email').val(data.email);
@@ -326,12 +326,65 @@ $(function() {
 			dataType: 'json',
 			data: {id: id},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				$('#id_identitas').val(data.id_identitas);
 				$('#nama').val(data.nama_web);
 				$('#alamat').val(data.alamat);
 				$('#email').val(data.email);
 				$('#telepon').val(data.telepon);
+			}
+		});
+	});
+
+
+	// Halaman Tentang Kampus
+	$('.tombolUbahTentang').click(function() {
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/tentang/getubahtentang',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				// console.log(data);
+				$('#id_tentang').val(data.id_tentang);
+				$('#sejarah').val(data.sejarah);
+				$('#visi').val(data.visi);
+				$('#misi').val(data.misi);
+			}
+		});
+	});
+
+
+	// Halaman Informasi Kampus
+	$('.tombolTambahInfo').click(function() {
+		$('#formInfoModalLabel').html('Tambah Data Informasi Kampus');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_user').val('');
+	});
+
+	$('.tombolUbahInfo').click(function() {
+		$('#formInfoModalLabel').html('Ubah Data Informasi Kampus');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/informasi/ubahinfo');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/informasi/getubahinfo',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_info').val(data.id_info);
+				$('#icon').val(data.icon);
+				$('#judul').val(data.judul_info);
+				$('#isi').val(data.isi_info);
 			}
 		});
 	});

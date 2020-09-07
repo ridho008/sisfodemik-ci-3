@@ -177,13 +177,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('admin/informasi'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Informasi Kampus</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<?= base_url('admin/tentang'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tentang Kampus</p>
                 </a>

@@ -35,6 +35,13 @@ class Identitas_model extends CI_Model {
 		$this->db->update('idenditas');
 	}
 
+
+	// ================== HOME ======================
+	public function getAllIdentitasHome()
+	{
+		return $this->db->get('idenditas')->result_array();
+	}
+
 	
 
 }
