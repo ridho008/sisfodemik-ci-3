@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		$this->load->model('Identitas_model');
 		$this->load->model('Tentang_model');
 		$this->load->model('Informasi_model');
+		$this->load->model('Hubungi_model');
 	}
 
 	public function index()
@@ -25,6 +26,20 @@ class Home extends CI_Controller {
 		$this->load->view('home/index', $data);
 		$this->load->view('themeplates/footer', $data);
 	}
+
+	public function hubungi()
+    {
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim', ['required' => 'Nama Lengkap Wajib Di Isi!']);
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', ['required' => 'Email Wajib Di Isi!']);
+        $this->form_validation->set_rules('pesan', 'Pesan', 'required|trim', ['required' => 'Pesan Wajib Di Isi!']);
+        if($this->form_validation->run() == FALSE) {
+        	$this->index();
+        } else {
+        	$this->Hubungi_model->aksiTambahPesan();
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fa fa-info-circle"></i> Pesan <strong>Berhasil Dikirim.</strong></div>');
+			redirect('home');
+        }
+    }
 
 
 }

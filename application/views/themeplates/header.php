@@ -49,11 +49,53 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Geleri</a>
       </li>
+
+      <!-- Jika tidak ada user/admin yang login -->
+      <?php if(!$this->session->userdata('level')) : ?>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('auth'); ?>">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?= base_url('auth/daftar'); ?>">Daftar</a>
+        </li>
+      <?php endif; ?>
+      <!-- /Jika tidak ada user/admin yang login -->
+
+      <?php if($this->session->userdata('level') == 'admin') : ?>
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Halo, <?= $this->session->userdata('username'); ?>
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="<?= base_url('admin/dashboard'); ?>">Dashborad</a>
+            <a class="dropdown-item" href="#">Ganti Password</a>
+            <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <?php if($this->session->userdata('level') == 'user') : ?>
+        <!-- User -->
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Halo, <?= $this->session->userdata('username'); ?>
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="<?= base_url('user/dashboard'); ?>">Dashborad</a>
+            <a class="dropdown-item" href="#">Ganti Password</a>
+            <a class="dropdown-item" href="<?= base_url('auth/logout'); ?>">Logout</a>
+          </div>
+        </div>
+        <!-- /User -->
+      <?php endif; ?>
+
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <!-- <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form> -->
   </div>
   </div>
 </nav>

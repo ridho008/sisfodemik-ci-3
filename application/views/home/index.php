@@ -90,21 +90,59 @@
 
 
 <!-- Informasi Kampus -->
-<div class="container">
-  <div class="row mt-4">
+<div class="container-fluid mt-5" style="background-color: #eee;">
+  <div class="container">
+  <h2 class="text-center">Informasi Kampus</h2>
+    <div class="row mt-4">
     <?php foreach($informasi as $i) : ?>
-    <div class="col-md-4">
+    <div class="col-md-4 mt-2 mb-5">
       <div class="card" style="width: 18rem;">
         <span class="display-2 text-center"><i class="<?= $i['icon']; ?>"></i></span>
         <div class="card-body">
-          <h5 class="card-title"><?= $i['judul_info']; ?></h5>
+          <h5 class="card-title text-center"><?= $i['judul_info']; ?></h5>
           <p class="card-text"><?= $i['isi_info']; ?></p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
         </div>
       </div>
     </div>
     <?php endforeach; ?>
   </div>
+  </div>
 </div>
-
 <!-- /Informasi Kampus -->
+
+<!-- Hubungi Kami -->
+<div class="container-fluid mt-5 mb-5">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+        <h2 class="text-center">Hubungi Kami</h2>
+        <?= $this->session->flashdata('pesan'); ?>
+          <form action="<?= base_url('home/hubungi'); ?>" method="post">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" name="email" value="<?= set_value('email'); ?>" class="form-control" id="email">
+              <small class="form-text muted text-danger"><?= form_error('email') ?></small>
+            </div>
+            <div class="form-group">
+              <label for="nama">Nama Lengkap</label>
+              <input type="nama" name="nama" value="<?= set_value('nama'); ?>" class="form-control" id="nama">
+              <small class="form-text muted text-danger"><?= form_error('nama') ?></small>
+            </div>
+            <div class="form-group">
+              <label for="pesan">Pesan</label>
+              <textarea name="pesan" id="pesan" value="<?= set_value('pesan'); ?>" class="form-control"></textarea>
+              <small class="form-text muted text-danger"><?= form_error('pesan') ?></small>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Hubungi Kami -->
