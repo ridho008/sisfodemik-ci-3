@@ -146,3 +146,26 @@
   </div>
 </div>
 <!-- /Hubungi Kami -->
+
+
+<!-- Layanan Kampus -->
+<div class="container-fluid mt-5" id="layanan" style="background-color: #eee;">
+  <div class="container">
+  <h2 class="text-center">Layanan Kampus</h2>
+    <div class="row mt-4">
+    <?php foreach($layanan as $i) : ?>
+    <div class="col-md-4 mt-2 mb-5">
+      <div class="card p-2 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+        <span class="display-2 text-center"><i class="<?= $i['icon']; ?>"></i></span>
+        <div class="card-body">
+          <h5 class="card-title text-center"><?= $i['judul_layanan']; ?></h5>
+          <p class="card-text"><?= $i['des_layanan']; ?></p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+    </div>
+    <?php endforeach; ?>
+  </div>
+  </div>
+</div>
+<!-- /Layanan Kampus -->

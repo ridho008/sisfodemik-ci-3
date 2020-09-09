@@ -9,6 +9,7 @@ class Home extends CI_Controller {
 		$this->load->model('Tentang_model');
 		$this->load->model('Informasi_model');
 		$this->load->model('Hubungi_model');
+		$this->load->model('Layanan_model');
 	}
 
 	public function index()
@@ -22,6 +23,9 @@ class Home extends CI_Controller {
 
 		// Informasi Kampus
 		$data['informasi'] = $this->Informasi_model->getInformasiKampusForHome();
+
+		// Layanan Kampus
+		$data['layanan'] = $this->Layanan_model->getInformasiLayananForHome();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('home/index', $data);
 		$this->load->view('themeplates/footer', $data);

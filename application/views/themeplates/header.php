@@ -38,7 +38,7 @@
         <a class="nav-link" href="#">Informasi</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Fasilitas</a>
+        <a class="nav-link" href="#layanan">Layanan</a>
       </li> 
       <li class="nav-item">
         <a class="nav-link" href="#">Tentang Kampus</a>

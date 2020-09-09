@@ -415,4 +415,38 @@ $(function() {
 	});
 
 
+	// Halaman Layanan
+	$('.tombolTambahLayanan').click(function() {
+		$('#formLayananModalLabel').html('Tambah Data Layanan');
+		$('.modal-footer button[type=submit]').html('Tambah');
+
+		$('#id_jurusan').val('');
+		$('#kode_jurusan').val('');
+		$('#nama_jurusan').val('');
+	});
+
+	$('.tombolUbahLayanan').click(function() {
+		$('#formLayananModalLabel').html('Ubah Data Layanan');
+		$('.modal-footer button[type=submit]').html('Ubah');
+		$('.modal-body form').attr('action', 'http://localhost/sisfodemik-ci-3/admin/layanan/ubahlayanan');
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/layanan/getubahlayanan',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_layanan').val(data.id_layanan);
+				$('#judul').val(data.judul_layanan);
+				$('#des').val(data.des_layanan);
+				$('#icon').val(data.icon);
+			}
+		});
+	});
+
+
 });
