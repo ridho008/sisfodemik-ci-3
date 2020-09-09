@@ -390,4 +390,29 @@ $(function() {
 	});
 
 
+
+	// Halaman Hubungi Kami/Kontak
+	$('.tombolBalasPesan').click(function() {
+
+		const id = $(this).data('id');
+		// console.log(id);
+
+		$.ajax({
+			url: 'http://localhost/sisfodemik-ci-3/admin/hubungi/getpesanuser',
+			method: 'post',
+			dataType: 'json',
+			data: {id: id},
+			success: function(data) {
+				console.log(data);
+				$('#id_hubungi').val(data.id_hubungi);
+				$('#email').val(data.email);
+				$('.modal-body .card-header').html('Pengirim <strong>' + data.nama + '</strong>');
+				$('.modal-body .card-title').html('Email <strong>' + data.email + '</strong>');
+				$('.modal-body .card-text').html('Pesan ' + data.pesan);
+				$('#formBalasPesanModalLabel').html('Balas Pesan ' + data.nama);
+			}
+		});
+	});
+
+
 });

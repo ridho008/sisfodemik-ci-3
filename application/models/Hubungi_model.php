@@ -16,10 +16,16 @@ class Hubungi_model extends CI_Model {
 		$data = [
 			'nama' => htmlspecialchars($this->input->post('nama', true)),
 			'email' => htmlspecialchars($this->input->post('email', true)),
-			'pesan' => htmlspecialchars($this->input->post('pesan', true))
+			'pesan' => htmlspecialchars($this->input->post('pesan', true)),
+			'status' => '0'
 		];
 
 		$this->db->insert('hubungi', $data);
+	}
+
+	public function getPesanUserById($id)
+	{
+		return $this->db->get_where('hubungi', ['id_hubungi' => $id])->row_array();
 	}
 
 }

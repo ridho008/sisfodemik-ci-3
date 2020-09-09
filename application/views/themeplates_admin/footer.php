@@ -14,6 +14,11 @@
 
 <!-- jQuery -->
 <script src="<?= base_url('assets/assets_theme/'); ?>plugins/jquery/jquery.min.js"></script>
+<script>
+	$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets/assets_theme/'); ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->

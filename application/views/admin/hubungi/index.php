@@ -26,7 +26,7 @@
             <div class="row">
               <div class="col-md-6">
                 <?php if(validation_errors()) : ?>
-                  <div class="alert alert-danger" role="alert"><i class="fa fa-info-circle"></i> <?= validation_errors(); ?></div>
+                  <div class="alert alert-danger" role="alert"><?= validation_errors(); ?></div>
                 <?php endif; ?>
                 <?= $this->session->flashdata('pesan'); ?>
               </div>
@@ -70,8 +70,15 @@
                         <td><?= $i['email']; ?></td>
                         <td><?= $i['pesan']; ?></td>
                         <td>
-                          <button type="button" class="btn btn-info tombolUbahIdentitas" data-toggle="modal" data-target="#formIdentitasModal" data-id="<?= $i['id_hubungi']; ?>"><i class="fa fa-edit"></i></button>
-                          <a href="<?= base_url('admin/hubungi/hapus/') . $i['id_hubungi']; ?>" class="btn btn-danger" onclick="return confirm('Yakin ?')"><i class="fa fa-trash"></i></a>
+                          <!-- data-toggle="tooltip" data-placement="top" title="Balas Pesan" -->
+                          <?php if($i['status'] == '0') : ?>
+                          <button type="button" class="btn btn-info tombolBalasPesan" title="Balas Pesan" data-toggle="modal" data-target="#formBalasPesanModal" data-id="<?= $i['id_hubungi']; ?>"><i class="fa fa-comment-dots"></i></button>
+                          <?php else : ?>
+                            <span class="badge badge-success p-2" data-toggle="tooltip" data-placement="top" title="Pesan Sudah Terkirim">
+                            <i class="fa fa-check-circle"></i>
+                            </span>
+                          <?php endif; ?>
+                          <a href="<?= base_url('admin/hubungi/hapus/') . $i['id_hubungi']; ?>" data-toggle="tooltip" data-placement="top" title="Hapus Pesan ?" class="btn btn-danger" onclick="return confirm('Yakin ?')"><i class="fa fa-trash"></i></a>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -115,41 +122,42 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="formIdentitasModal" tabindex="-1" aria-labelledby="formIdentitasModalLabel" aria-hidden="true">
+<div class="modal fade" id="formBalasPesanModal" tabindex="-1" aria-labelledby="formBalasPesanModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="formIdentitasModalLabel">Ubah Data Identias Web</h5>
+        <h5 class="modal-title" id="formBalasPesanModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+        <div class="card border-light mb-3">
+          <div class="card-header"></div>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
         <form action="" method="post">
-          <input type="hidden" name="id_identitas" id="id_identitas">
           <div class="form-group">
-            <label for="nama">Judul Website</label>
-            <input type="text" name="nama" id="nama" class="form-control">
-            <small class="muted text-danger"><?= form_error('nama'); ?></small>
-          </div>
-          <div class="form-group">
-            <label for="alamat">Alamat</label>
-            <textarea name="alamat" id="alamat" class="form-control"></textarea>
-            <small class="muted text-danger"><?= form_error('alamat'); ?></small>
-          </div>
-          <div class="form-group">
+            <input type="hidden" name="id_hubungi" id="id_hubungi" readonly class="form-control">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="form-control">
+            <input type="text" name="email" id="email" readonly class="form-control">
             <small class="muted text-danger"><?= form_error('email'); ?></small>
           </div>
           <div class="form-group">
-            <label for="telepon">telepon</label>
-            <input type="number" name="telepon" id="telepon" class="form-control">
-            <small class="muted text-danger"><?= form_error('telepon'); ?></small>
+            <label for="subject">Subject</label>
+            <input type="text" name="subject" id="subject" class="form-control">
+            <small class="muted text-danger"><?= form_error('subject'); ?></small>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-            <button type="submit" class="btn btn-primary">Ubah</button>
+          <div class="form-group">
+            <label for="pesan">Pesan</label>
+            <textarea name="pesan" id="pesan" class="form-control"></textarea>
+            <small class="muted text-danger"><?= form_error('pesan'); ?></small>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kirim</button>
           </div>
         </form>
       </div>

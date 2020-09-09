@@ -96,7 +96,7 @@
     <div class="row mt-4">
     <?php foreach($informasi as $i) : ?>
     <div class="col-md-4 mt-2 mb-5">
-      <div class="card" style="width: 18rem;">
+      <div class="card p-2 shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
         <span class="display-2 text-center"><i class="<?= $i['icon']; ?>"></i></span>
         <div class="card-body">
           <h5 class="card-title text-center"><?= $i['judul_info']; ?></h5>
